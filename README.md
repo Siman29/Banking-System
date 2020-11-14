@@ -29,5 +29,8 @@ Thanks Sparks Foundation for this opportunity.
 ### bankusers.sql :
     This sql file refers to the database where details of all the customers are stored. 
     
+### style.css / style_transfer.css / style_view.css : 
+     There are three stylesheets for the webpage.
+    
 # THANK YOU
 ## SIMAN PARVEEN
