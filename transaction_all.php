@@ -50,7 +50,7 @@
         $deposits = $row['TotalDeposist'];
     }
 
-    if($transfer > 0){
+    if(($transfer > 0)&&($rname != '-- Select Receiver Name --')&&($tbalance>=50)){
         $tbalance = $tbalance - $transfer;
         $rbalance = $rbalance + $transfer;
 
@@ -63,19 +63,23 @@
 
         mysqli_query($conn, $sql4);
         
+        $sql1 = "SELECT * FROM transaction";
+        $data = mysqli_query($conn,$sql1) or die('Error Getting the data');
+        $transid = mysqli_num_rows($data);
+        
+        $transid = $transid +1;
+        
                 
-        $username="root";
-        $password="";
-        $db="transaction";
-        $conn = new mysqli("localhost", $username,$password,$db) or die ("You are not Connected");
-        $date = date("Y-m-d h:i:sa");
-        $sql = "INSERT INTO transaction VALUES($tid,'$custoname',$receid,'$rname',$transfer,$tbalance,$rbalance,'$date','$msg')";
+        $date = date("Y-m-d h:i:s");
+        
+        
+        $sql = "INSERT INTO transaction VALUES($transid,$tid,'$custoname',$receid,'$rname',$transfer,$tbalance,$rbalance,'$date','$msg')";
         if(mysqli_query($conn, $sql)){
             echo 'Transaction Successful';
         }
 
     
-        $sqlget = "SELECT * FROM transaction WHERE from_cust_id = '$tid'";
+        $sqlget = "SELECT * FROM transaction WHERE fromcustid = '$tid'";
         $sqldata = mysqli_query($conn,$sqlget) or die('Error Getting the data');
         echo "<table border='1'>";
         echo "<caption>Withdrawals</caption>";
@@ -90,7 +94,7 @@
         for($i=1 ;$i <= $rowcount;$i++){
         while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
             echo "<tr><td>";
-                echo $row['to_cust_id'];
+                echo $row['tocustid'];
             echo "</td><td>";
                 echo $row['receivername'];
             echo "</td><td>";
@@ -107,7 +111,7 @@
           echo "</table>";
         echo "<br/>";
         
-        $sqlget1 = "SELECT * FROM transaction WHERE to_cust_id = '$tid'";
+        $sqlget1 = "SELECT * FROM transaction WHERE tocustid = '$tid'";
         $sqldata1 = mysqli_query($conn,$sqlget1) or die('Error Getting the data');
     
 
@@ -124,7 +128,7 @@
         for($i=1 ;$i <= $rowcount;$i++){
          while($row = mysqli_fetch_array($sqldata1, MYSQLI_ASSOC)){
             echo "<tr><td>";
-                echo $row['from_cust_id'];
+                echo $row['fromcustid'];
             echo "</td><td>";
                 echo $row['transferername'];
             echo "</td><td>";
@@ -139,12 +143,32 @@
 
           echo "</table>";
         echo "<br/>";
-}   
-
         echo '<form action="transfer.php">';
         echo  "<input type='hidden' name='id' value='$tid'>";
         echo "<button>Back</button>
         </form>";
+}  
+else if($rname == '-- Select Receiver Name --'){
+    echo '<script>
+        alert("Enter the Receiver Name or Enter the Amount greater than 0");
+        window.history.back();
+    </script>';
+}
+else if($transfer <= 0){
+    echo '<script>
+        alert("Enter the Receiver Name or Enter the Amount greater than 0");
+        window.history.back();
+    </script>';
+}
+else if($tbalance<50){
+    echo '<script>
+        alert("You do not have the base amount");
+        window.history.back();
+    </script>';
+}
+
+
+        
         
 
        
