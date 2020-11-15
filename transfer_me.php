@@ -28,12 +28,9 @@
 
 
         $tid = $_GET['id'];
-        $username="root";
-        $password="";
-        $db2="transaction";
-        $conn = new mysqli("localhost", $username,$password,$db2) or die ("You are not Connected");
+        include('connectivity.php');
     
-        $sqlget = "SELECT * FROM transaction WHERE from_cust_id = '$tid'";
+        $sqlget = "SELECT * FROM transaction WHERE fromcustid = '$tid'";
         $sqldata = mysqli_query($conn,$sqlget) or die('Error Getting the data');
         echo "<table border='1'>";
         echo "<caption>Withdrawals</caption>";
@@ -48,7 +45,7 @@
         for($i=1 ;$i <= $rowcount;$i++){
         while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
             echo "<tr><td>";
-                echo $row['to_cust_id'];
+                echo $row['tocustid'];
             echo "</td><td>";
                 echo $row['receivername'];
             echo "</td><td>";
@@ -65,7 +62,7 @@
           echo "</table>";
         echo "<br/>";
         
-        $sqlget1 = "SELECT * FROM transaction WHERE to_cust_id = '$tid'";
+        $sqlget1 = "SELECT * FROM transaction WHERE tocustid = '$tid'";
         $sqldata1 = mysqli_query($conn,$sqlget1) or die('Error Getting the data');
     
 
@@ -82,7 +79,7 @@
         for($i=1 ;$i <= $rowcount;$i++){
          while($row = mysqli_fetch_array($sqldata1, MYSQLI_ASSOC)){
             echo "<tr><td>";
-                echo $row['from_cust_id'];
+                echo $row['fromcustid'];
             echo "</td><td>";
                 echo $row['transferername'];
             echo "</td><td>";
@@ -99,7 +96,10 @@
         echo "<br/>";
   
 
-        echo "<button><a href='http://localhost/bankingsytem/transfer.php?id=$tid'>Back</button>";
+         echo '<form action="transfer.php">';
+        echo  "<input type='hidden' name='id' value='$tid'>";
+        echo "<button>Back</button>
+        </form>";
         
 
        

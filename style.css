@@ -53,7 +53,7 @@ nav a {
 }
 
 section {
-    height: 50%;
+    height: 100%;
     text-shadow: 2px 0px 0px rgba(0, 1, 2, 0.377), 0px 2px 0px rgba(0, 1, 2, 0.377), -2px 0px 0px rgba(0, 1, 2, 0.377), 0px -2px 0px rgba(0, 1, 2, 0.377);
 }
 
@@ -64,8 +64,7 @@ section div {
     z-index: 1;
     width: 60%;
     box-shadow: 2px 2px 20px rgba(17, 52, 77, 0.377);
-    padding: 9%;
-    padding-right: 0%;
+    padding: 13% 0% 13% 9%;
     border-top-right-radius: 250px;
     border-bottom-right-radius: 250px;
     background-color: rgba(17, 143, 226, 0.2);
@@ -187,7 +186,7 @@ nav a:hover {
         float: left;
         box-shadow: 2px -2px 20px rgba(17, 52, 77, 0.377), -2px 2px 20px rgba(17, 52, 77, 0.377);
         margin-right: 0px;
-        padding: 6%;
+        padding: 6% 0% 6% 6%;
     }
     nav a {
         margin-right: 0px;
@@ -200,7 +199,7 @@ nav a:hover {
         width: 100%;
         text-align: center;
         font-size: 10px;
-        padding: 15% 0% 15% 5%;
+        padding: 20% 0% 20% 1%;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
